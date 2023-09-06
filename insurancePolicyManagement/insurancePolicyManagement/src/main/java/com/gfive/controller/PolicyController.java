@@ -35,7 +35,6 @@ public class PolicyController {
 	public Policy addPolicy(@RequestBody Policy policy, HttpSession httpSession) {
 		try {
 			Policy policyAddResult = policyService.addNewPolicy(policy, httpSession);
-			System.out.println(policyAddResult);
 			if (policyAddResult != null) {
 				return policyAddResult;
 			}

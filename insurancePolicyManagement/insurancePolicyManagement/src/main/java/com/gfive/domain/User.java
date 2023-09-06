@@ -32,12 +32,10 @@ public class User {
 	private String user_password;
 
 	public User() {
-		super();
-		// TODO Auto-generated constructor stub
+
 	}
 
 	public User(Integer user_id, String user_name, String user_email, String user_password) {
-		super();
 		this.user_id = user_id;
 		this.user_name = user_name;
 		this.user_email = user_email;
