@@ -78,7 +78,8 @@ public class UserController {
 		return false;
 	}
 	
-	@PutMapping(value = "/updateUser")
+	@PutMapping(value = "/updateUser",  consumes = {MediaType.APPLICATION_JSON_VALUE})
+	@ResponseStatus(code = HttpStatus.OK)
 	public boolean updateUser(@RequestBody User user) {
 		try {
 			if(userService.updateUser(user)) {
@@ -91,6 +92,7 @@ public class UserController {
 	}
 	
 	@DeleteMapping(value = "/deleteUser/{userEmailId}")
+	@ResponseStatus(code = HttpStatus.OK)
 	public boolean deleteUser(@PathVariable String userEmailId) {
 		try {
 			if(userService.deleteUser(userEmailId)) {
@@ -122,7 +124,8 @@ public class UserController {
 //		return null;
 //	}
 	
-	@PutMapping(value = "/updatePassword")
+	@PutMapping(value = "/updatePassword",  consumes = {MediaType.APPLICATION_JSON_VALUE})
+	@ResponseStatus(code = HttpStatus.OK)
 	public boolean updateUserPassword(@RequestBody Map adminUpdatePassword) {
 		try {
 			String emaiId = (String) adminUpdatePassword.get("emailId");
@@ -134,5 +137,4 @@ public class UserController {
 		}
 		return false;
 	}
-
 }
