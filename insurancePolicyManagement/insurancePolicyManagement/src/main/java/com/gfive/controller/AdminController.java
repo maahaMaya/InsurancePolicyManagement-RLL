@@ -33,8 +33,7 @@ public class AdminController {
 		return adminService.getAllAdmin();
 	}
 
-	@PostMapping(value = "/adminLogin", produces = { MediaType.APPLICATION_JSON_VALUE }, consumes = {
-			MediaType.APPLICATION_JSON_VALUE })
+	@PostMapping(value = "/adminLogin", consumes = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseStatus(code = HttpStatus.FOUND)
 	public boolean adminLogin(@RequestBody Map adminLoginCredentialst, HttpSession httpSession) {
 		try {
