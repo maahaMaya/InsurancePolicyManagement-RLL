@@ -1,5 +1,8 @@
 package com.gfive.service;
 
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -12,20 +15,19 @@ import org.springframework.stereotype.Service;
 import com.gfive.domain.Policy;
 import com.gfive.repository.PolicyRepository;
 
-
 @Service(value = "policyService")
 @Scope(value = "singleton")
-public class PolicyService implements IPolicyService{
+public class PolicyService implements IPolicyService {
 
 	@Autowired
 	@Qualifier(value = "policyRepository")
 	private PolicyRepository policyRepository;
-	
+
 	@Override
 	public Policy addNewPolicy(Policy policy, HttpSession httpSession) {
 		try {
 			System.out.println((httpSession.getAttribute("adminLoginStatus")));
-			if((httpSession.getAttribute("adminLoginStatus")).equals(false)) {
+			if ((httpSession.getAttribute("adminLoginStatus")).equals(false)) {
 				return null;
 			}
 			return policyRepository.save(policy);
@@ -45,11 +47,10 @@ public class PolicyService implements IPolicyService{
 		return null;
 	}
 
-
 	@Override
 	public Policy updatePolicyById(Policy policy, HttpSession httpSession) {
 		try {
-			if((httpSession.getAttribute("adminLoginStatus")).equals(false)) {
+			if ((httpSession.getAttribute("adminLoginStatus")).equals(false)) {
 				return null;
 			}
 			return policyRepository.saveAndFlush(policy);
@@ -58,12 +59,11 @@ public class PolicyService implements IPolicyService{
 		}
 		return null;
 	}
-	
-	
+
 	@Override
 	public boolean deletePolicyById(int policyId, HttpSession httpSession) {
 		try {
-			if((httpSession.getAttribute("adminLoginStatus")).equals(false)) {
+			if ((httpSession.getAttribute("adminLoginStatus")).equals(false)) {
 				return false;
 			}
 			policyRepository.deleteById(policyId);
@@ -76,8 +76,31 @@ public class PolicyService implements IPolicyService{
 
 	@Override
 	public List<Policy> searchPolicyByKeyword(String serachPolicyKeyword) {
-		// TODO Auto-generated method stub
+		try {
+			return policyRepository.searchPolicyByKeyWord(serachPolicyKeyword);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 		return null;
 	}
 
+	@Override
+	public List<Policy> viewAllPolicyByPriceSorting() {
+		try {
+			List<Policy>  listAllPolicy =  policyRepository.findAll();
+			Collections.sort(listAllPolicy, new SortPolicyByPrice());
+			return listAllPolicy;
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return null;
+	}
+
+}
+
+//class for the sorting
+class SortPolicyByPrice implements Comparator<Policy> {
+	public int compare(Policy a, Policy b) {
+		return (int) (a.getPolicy_price() - b.getPolicy_price());
+	}
 }

@@ -30,7 +30,8 @@ public class PolicyController {
 	private IPolicyService policyService;
 
 	// add policy
-	@PostMapping(value = "/addPolicy", produces = {MediaType.APPLICATION_JSON_VALUE},  consumes = {MediaType.APPLICATION_JSON_VALUE})
+	@PostMapping(value = "/addPolicy", produces = { MediaType.APPLICATION_JSON_VALUE }, consumes = {
+			MediaType.APPLICATION_JSON_VALUE })
 	@ResponseStatus(code = HttpStatus.CREATED)
 	public Policy addPolicy(@RequestBody Policy policy, HttpSession httpSession) {
 		try {
@@ -45,7 +46,8 @@ public class PolicyController {
 	}
 
 	// update policy
-	@PutMapping(value = "/updatePolicy", produces = {MediaType.APPLICATION_JSON_VALUE},  consumes = {MediaType.APPLICATION_JSON_VALUE})
+	@PutMapping(value = "/updatePolicy", produces = { MediaType.APPLICATION_JSON_VALUE }, consumes = {
+			MediaType.APPLICATION_JSON_VALUE })
 	@ResponseStatus(code = HttpStatus.OK)
 	public Policy updatePolicy(@RequestBody Policy policy, HttpSession httpSession) {
 		try {
@@ -71,7 +73,6 @@ public class PolicyController {
 		return null;
 	}
 
-
 	// delete Policy
 	@DeleteMapping("/deletePolicyById/{policy_id}")
 	@ResponseStatus(code = HttpStatus.OK)
@@ -91,7 +92,19 @@ public class PolicyController {
 	@ResponseStatus(code = HttpStatus.OK)
 	public List<Policy> serchPolicyByKeyword(@PathVariable String serachKeyword) {
 		try {
+			return policyService.searchPolicyByKeyword(serachKeyword);
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return null;
+	}
 
+	// get all policy by Sorting Asc by Price
+	@GetMapping(value = "/viewAllPolicyByPriceSorting")
+	@ResponseStatus(code = HttpStatus.OK)
+	public List<Policy> viewAllPolicyByPriceSorting() {
+		try {
+			return policyService.viewAllPolicyByPriceSorting();
 		} catch (Exception e) {
 			System.out.println(e);
 		}

@@ -24,5 +24,8 @@ public interface IOrderService {
 	public Order declineOrderStatus(Integer applicationId, HttpSession httpSession);
 	
 	//get order customer order
-	public List<Order> getUserOrder(String customerEmailId);
+	public List<Order> getUserOrder(String customerEmailId, HttpSession httpSession);
+	
+	//get order customer order
+	public List<Order> serachOrderByKeyword(String customerEmailId, HttpSession httpSession);
 }

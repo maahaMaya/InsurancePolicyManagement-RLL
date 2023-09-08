@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.gfive.domain.User;
 import com.gfive.service.IUserService;
 
-
 @RestController
 @Scope(value = "request")
 public class UserController {
@@ -104,25 +103,25 @@ public class UserController {
 		return false;
 	}
 	
-//	@GetMapping(value = "/viewAllByUser/{searchKeyword}")
-//	public List<User> vieAllUserBySearchKeyword(@PathVariable String searchKeyword) {
-//		try {
-//			return userService.viewSearchKeywordUser(searchKeyword);
-//		} catch (Exception e) {
-//			System.out.println(e);
-//		}
-//		return null;
-//	}
-//	
-//	@GetMapping(value = "/viewBy/{emailId}")
-//	public Optional<User> viewUserByEmailId(@PathVariable String emailId) {
-//		try {
-//			//return userService.searchUserByEmail(emailId);
-//		} catch (Exception e) {
-//			System.out.println(e);
-//		}
-//		return null;
-//	}
+	@GetMapping(value = "/viewAllByUserSerach/{searchKeyword}")
+	public List<User> viewUserBySearchKeyword(@PathVariable String searchKeyword, HttpSession httpSession) {
+		try {
+			return userService.viewUserBySearchKeyword(searchKeyword, httpSession);
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return null;
+	}
+
+	@GetMapping(value = "/viewUserByEmail/{userEmailId}")
+	public User viewUserByEmailId(@PathVariable String userEmailId, HttpSession httpSession) {
+		try {
+			return (User) userService.viewUserByEmail(userEmailId, httpSession);
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return null;
+	}
 	
 	@PutMapping(value = "/updatePassword",  consumes = {MediaType.APPLICATION_JSON_VALUE})
 	@ResponseStatus(code = HttpStatus.OK)

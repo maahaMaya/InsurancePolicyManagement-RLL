@@ -106,9 +106,31 @@ public class OrderService implements IOrderService {
 		}
 		return null;
 	}
-	
+
 	@Override
-	public List<Order> getUserOrder(String userEmailId) {
+	public List<Order> getUserOrder(String customerEmailId, HttpSession httpSession) {
+		try {
+			String emailId = (String) httpSession.getAttribute("userLoginEmail");
+			if (!(emailId).equals("")) {
+				return orderRepository.searchOrderByKeyWord(customerEmailId);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 		return null;
 	}
+
+	@Override
+	public List<Order> serachOrderByKeyword(String serchKeyword, HttpSession httpSession) {
+		try {
+			if((httpSession.getAttribute("adminLoginStatus")).equals(false)) {
+				return null;
+			}
+			return orderRepository.searchOrderByKeyWord(serchKeyword);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return null;
+	}
+	
 }

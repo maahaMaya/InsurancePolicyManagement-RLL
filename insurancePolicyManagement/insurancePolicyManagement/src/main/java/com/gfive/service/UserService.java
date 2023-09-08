@@ -26,7 +26,7 @@ public class UserService implements IUserService {
 			userRepository.save(user);
 			return user;
 		} catch (Exception e) {
-			// TODO: handle exception
+			System.out.println(e);
 		}
 		return null;
 	}
@@ -42,7 +42,7 @@ public class UserService implements IUserService {
 				}
 			}
 		} catch (Exception e) {
-			// TODO: handle exception
+			System.out.println(e);
 		}
 		return false;
 	}
@@ -53,7 +53,7 @@ public class UserService implements IUserService {
 			httpSession.setAttribute("userLoginEmail", "");
 			return true;
 		} catch (Exception e) {
-
+			System.out.println(e);
 		}
 		return false;
 	}
@@ -64,7 +64,7 @@ public class UserService implements IUserService {
 			userRepository.saveAndFlush(user);
 			return true;
 		} catch (Exception e) {
-			// TODO: handle exception
+			System.out.println(e);
 		}
 		return false;
 	}
@@ -80,7 +80,7 @@ public class UserService implements IUserService {
 				}
 			}
 		} catch (Exception e) {
-			// TODO: handle exception
+			System.out.println(e);
 		}
 		return false;
 	}
@@ -93,14 +93,8 @@ public class UserService implements IUserService {
 			}
 			return null;
 		} catch (Exception e) {
-			// TODO: handle exception
+			System.out.println(e);
 		}
-		return null;
-	}
-
-	@Override
-	public List<User> viewSearchKeywordUser(String searchKeyword) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -119,8 +113,30 @@ public class UserService implements IUserService {
 				}
 			}
 		} catch (Exception e) {
-			// TODO: handle exception
+			System.out.println(e);
 		}
 		return false;
+	}
+
+	@Override
+	public List<User> viewUserBySearchKeyword(String searchKeyword, HttpSession httpSession) {
+		try {
+			if ((httpSession.getAttribute("adminLoginStatus")).equals(true)) {
+				return userRepository.searchUserByKeyWord(searchKeyword);
+			}
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return null;
+	}
+
+	@Override
+	public User viewUserByEmail(String searchByEmail, HttpSession httpSession) {
+		try {
+			return userRepository.searchUserByEmail(searchByEmail);
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return null;
 	}
 }

@@ -94,9 +94,21 @@ public class OrderController {
 	// get all user order
 	@GetMapping(value = "/viewUserOrder/{userEmailId}")
 	@ResponseStatus(code = HttpStatus.OK)
-	public List<Order> getUserOrder(@PathVariable String userEmailId) {
+	public List<Order> getUserOrder(@PathVariable String userEmailId, HttpSession httpSession) {
 		try {
-			return orderService.getUserOrder(userEmailId);
+			return orderService.getUserOrder(userEmailId, httpSession);
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return null;
+	}
+	
+	// get admin search order
+	@GetMapping(value = "/serachOrderByKeyword/{searchKeyword}")
+	@ResponseStatus(code = HttpStatus.OK)
+	public List<Order> serachOrderByKeyword(@PathVariable String searchKeyword, HttpSession httpSession) {
+		try {
+			return orderService.serachOrderByKeyword(searchKeyword, httpSession);
 		} catch (Exception e) {
 			System.out.println(e);
 		}
