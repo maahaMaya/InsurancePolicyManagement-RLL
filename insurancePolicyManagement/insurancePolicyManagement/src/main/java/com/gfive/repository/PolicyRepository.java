@@ -15,4 +15,7 @@ public interface PolicyRepository extends JpaRepository<Policy, Integer>{
 	
 	@Query("SELECT p FROM Policy p WHERE ((p.policy_name LIKE %?1%) OR (p.policy_category LIKE %?1%) OR (p.policy_price LIKE %?1%))")
 	public List<Policy> searchPolicyByKeyWord(String serachPolicyKeyword);
+
+	@Query("SELECT p FROM Policy p WHERE ((policy_id LIKE %?1%))")
+	public Policy searchPolicyById(Integer serachPolicyByid);
 }

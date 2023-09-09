@@ -98,6 +98,18 @@ public class PolicyController {
 		}
 		return null;
 	}
+	
+	// get all policy by Search Id
+	@GetMapping(value = "/searchPolicyById/{id}")
+	@ResponseStatus(code = HttpStatus.OK)
+	public Policy searchPolicyById(@PathVariable Integer id) {
+		try {
+			return policyService.searchPolicyById(id);
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return null;
+	}
 
 	// get all policy by Sorting Asc by Price
 	@GetMapping(value = "/viewAllPolicyByPriceSorting")

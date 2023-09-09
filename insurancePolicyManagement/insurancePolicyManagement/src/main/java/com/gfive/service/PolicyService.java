@@ -83,6 +83,16 @@ public class PolicyService implements IPolicyService {
 		}
 		return null;
 	}
+	
+	@Override
+	public Policy searchPolicyById(Integer serachPolicyByid) {
+		try {
+			return (Policy) policyRepository.searchPolicyById(serachPolicyByid);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return null;
+	}
 
 	@Override
 	public List<Policy> viewAllPolicyByPriceSorting() {
