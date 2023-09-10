@@ -24,7 +24,7 @@ public class PolicyService implements IPolicyService {
 	private PolicyRepository policyRepository;
 
 	@Override
-	public Policy addNewPolicy(Policy policy, HttpSession httpSession) {
+	public Policy addNewPolicy(Policy policy) {
 		try {
 			//System.out.println((httpSession.getAttribute("adminLoginStatus")));
 //			if ((httpSession.getAttribute("adminLoginStatus")).equals(false)) {
@@ -48,11 +48,11 @@ public class PolicyService implements IPolicyService {
 	}
 
 	@Override
-	public Policy updatePolicyById(Policy policy, HttpSession httpSession) {
+	public Policy updatePolicy(Policy policy) {
 		try {
-			if ((httpSession.getAttribute("adminLoginStatus")).equals(false)) {
-				return null;
-			}
+//			if ((httpSession.getAttribute("adminLoginStatus")).equals(false)) {
+//				return null;
+//			}
 			return policyRepository.saveAndFlush(policy);
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -61,11 +61,11 @@ public class PolicyService implements IPolicyService {
 	}
 
 	@Override
-	public boolean deletePolicyById(int policyId, HttpSession httpSession) {
+	public boolean deletePolicyById(int policyId) {
 		try {
-			if ((httpSession.getAttribute("adminLoginStatus")).equals(false)) {
-				return false;
-			}
+//			if ((httpSession.getAttribute("adminLoginStatus")).equals(false)) {
+//				return false;
+//			}
 			policyRepository.deleteById(policyId);
 			return true;
 		} catch (Exception e) {

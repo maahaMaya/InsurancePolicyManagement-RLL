@@ -33,9 +33,9 @@ public class PolicyController {
 	@PostMapping(value = "/addPolicy", produces = { MediaType.APPLICATION_JSON_VALUE }, consumes = {
 			MediaType.APPLICATION_JSON_VALUE })
 	@ResponseStatus(code = HttpStatus.CREATED)
-	public Policy addPolicy(@RequestBody Policy policy, HttpSession httpSession) {
+	public Policy addPolicy(@RequestBody Policy policy) {
 		try {
-			Policy policyAddResult = policyService.addNewPolicy(policy, httpSession);
+			Policy policyAddResult = policyService.addNewPolicy(policy);
 			if (policyAddResult != null) {
 				return policyAddResult;
 			}
@@ -49,9 +49,9 @@ public class PolicyController {
 	@PutMapping(value = "/updatePolicy", produces = { MediaType.APPLICATION_JSON_VALUE }, consumes = {
 			MediaType.APPLICATION_JSON_VALUE })
 	@ResponseStatus(code = HttpStatus.OK)
-	public Policy updatePolicy(@RequestBody Policy policy, HttpSession httpSession) {
+	public Policy updatePolicy(@RequestBody Policy policy) {
 		try {
-			Policy policyUpdateResult = policyService.updatePolicyById(policy, httpSession);
+			Policy policyUpdateResult = policyService.updatePolicy(policy);
 			if (policyUpdateResult != null) {
 				return policyUpdateResult;
 			}
@@ -76,9 +76,9 @@ public class PolicyController {
 	// delete Policy
 	@DeleteMapping("/deletePolicyById/{policy_id}")
 	@ResponseStatus(code = HttpStatus.OK)
-	public boolean deletePolicyById(@PathVariable int policy_id, HttpSession httpSession) {
+	public boolean deletePolicyById(@PathVariable int policy_id) {
 		try {
-			if (policyService.deletePolicyById(policy_id, httpSession)) {
+			if (policyService.deletePolicyById(policy_id)) {
 				return true;
 			}
 		} catch (Exception e) {

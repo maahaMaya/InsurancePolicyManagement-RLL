@@ -47,7 +47,7 @@ public class AdminClientController {
 	@PostMapping(value = "/adminLogin")
 	@ResponseStatus(code = HttpStatus.OK)
 	public boolean adminLogin(@RequestBody LoginCredentails loginCredentails) {
-		System.out.println("In getProductById with Id: " + loginCredentails.toString());
+		System.out.println("In loginCredentails : " + loginCredentails.toString());
 		boolean result = adminServiceProxy.adminLogin(loginCredentails);
 		System.out.println("Admin Login Result " + result);
 		return result;
