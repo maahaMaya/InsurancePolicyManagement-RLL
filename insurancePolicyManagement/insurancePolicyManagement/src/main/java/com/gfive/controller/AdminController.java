@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.http.MediaType;
 
 import com.gfive.domain.Admin;
+import com.gfive.domain.LoginCredentails;
 import com.gfive.service.IAdminService;
 
 @RestController
@@ -33,25 +34,25 @@ public class AdminController {
 		return adminService.getAllAdmin();
 	}
 
-	@PostMapping(value = "/adminLogin", consumes = { MediaType.APPLICATION_JSON_VALUE })
-	@ResponseStatus(code = HttpStatus.FOUND)
-	public boolean adminLogin(@RequestBody Map adminLoginCredentialst, HttpSession httpSession) {
+	@PostMapping(value = "/adminLogin", produces = { MediaType.APPLICATION_JSON_VALUE }, consumes = {
+			MediaType.APPLICATION_JSON_VALUE })
+	@ResponseStatus(code = HttpStatus.CREATED)
+	public boolean adminLogin(@RequestBody LoginCredentails loginCredentails) {
 		try {
-			String emaiId = (String) adminLoginCredentialst.get("emailId");
-			String password = (String) adminLoginCredentialst.get("password");
-			return adminService.adminLogin(emaiId, password, httpSession);
+			String emaiId = loginCredentails.getEmailId();
+			String password = loginCredentails.getPassword();
+			return adminService.adminLogin(emaiId, password);
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
 		return false;
 	}
 
-	@PostMapping(value = "/adminLogut", produces = { MediaType.APPLICATION_JSON_VALUE }, consumes = {
-			MediaType.APPLICATION_JSON_VALUE })
+	@PostMapping(value = "/adminLogut")
 	@ResponseStatus(code = HttpStatus.ACCEPTED)
 	public boolean adminLogut(HttpSession httpSession) {
 		try {
-			return adminService.adminLogut(httpSession);
+			return adminService.adminLogut();
 		} catch (Exception e) {
 			// TODO: handle exception
 		}

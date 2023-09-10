@@ -23,18 +23,19 @@ public class AdminService implements IAdminService {
 	@Override
 	public List<Admin> getAllAdmin() {
 		List<Admin> allAdminList = adminRepository.findAll();
-		System.out.println(allAdminList.toString());
+		//System.out.println(allAdminList.toString());
 		return allAdminList;
 	}
 
 	@Override
-	public boolean adminLogin(String adminEmail, String adminPassword, HttpSession httpSession) {
+	public boolean adminLogin(String adminEmail, String adminPassword) {
 		try {
 			List<Admin> allAdminList = adminRepository.findAll();
 			for (Admin adminData : allAdminList) {
 				if ((adminData.getAdmin_email()).equals(adminEmail)
 						&& (adminData.getAdmin_password()).equals(adminPassword)) {
-					httpSession.setAttribute("adminLoginStatus", true);
+					//httpSession.setAttribute("adminLoginStatus", true);
+					//System.out.println(httpSession.getAttribute("adminLoginStatus") + " -----------------");;
 					return true;
 				}
 			}
@@ -45,9 +46,9 @@ public class AdminService implements IAdminService {
 	}
 
 	@Override
-	public boolean adminLogut(HttpSession httpSession) {
+	public boolean adminLogut() {
 		try {
-			httpSession.setAttribute("adminLoginStatus", false);
+			//httpSession.setAttribute("adminLoginStatus", false);
 			return true;
 		} catch (Exception e) {
 			// TODO: handle exception

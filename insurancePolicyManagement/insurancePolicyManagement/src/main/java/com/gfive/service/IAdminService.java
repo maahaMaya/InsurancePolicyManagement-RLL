@@ -10,10 +10,11 @@ public interface IAdminService {
 	public List<Admin> getAllAdmin();
 	
 	//admin Login
-	public boolean adminLogin(String adminEmail, String AdminPassword, HttpSession httpSession);
+	//public boolean adminLogin(String adminEmail, String AdminPassword, HttpSession httpSession);
+	public boolean adminLogin(String adminEmail, String AdminPassword);
 	
 	//admin Login
-	public boolean adminLogut(HttpSession httpSession);
+	public boolean adminLogut();
 	
 	
 }

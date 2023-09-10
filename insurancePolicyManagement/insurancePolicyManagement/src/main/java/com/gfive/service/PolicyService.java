@@ -26,10 +26,10 @@ public class PolicyService implements IPolicyService {
 	@Override
 	public Policy addNewPolicy(Policy policy, HttpSession httpSession) {
 		try {
-			System.out.println((httpSession.getAttribute("adminLoginStatus")));
-			if ((httpSession.getAttribute("adminLoginStatus")).equals(false)) {
-				return null;
-			}
+			//System.out.println((httpSession.getAttribute("adminLoginStatus")));
+//			if ((httpSession.getAttribute("adminLoginStatus")).equals(false)) {
+//				return null;
+//			}
 			return policyRepository.save(policy);
 		} catch (Exception e) {
 			// TODO: handle exception
