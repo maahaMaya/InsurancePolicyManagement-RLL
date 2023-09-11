@@ -47,18 +47,16 @@ public class QuestionController {
 	// get all general Query
 	@GetMapping(value = "/viewAllContactUs", produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseStatus(code = HttpStatus.OK)
-	public List<ContactUs> viewAllContactUs(HttpSession httpSession) {
-		return questionService.viewAllContactUs(httpSession);
+	public List<ContactUs> viewAllContactUs() {
+		return questionService.viewAllContactUs();
 	}
 	
 	// add user query
 	@PostMapping(value = "/addUserQuery", produces = {MediaType.APPLICATION_JSON_VALUE},  consumes = {MediaType.APPLICATION_JSON_VALUE})
 	@ResponseStatus(code = HttpStatus.CREATED)
-	public UserQuestion addUserQuestionAddResult(@RequestBody Map messageData, HttpSession httpSession) {
+	public UserQuestion addUserQuestionAddResult(@RequestBody UserQuestion userQuestion) {
 		try {
-			String userMessage = (String) messageData.get("userMessage");
-			System.out.println(userMessage);
-			UserQuestion userQuestionAddResult = questionService.addToUserQuestion(userMessage, httpSession);
+			UserQuestion userQuestionAddResult = questionService.addToUserQuestion(userQuestion);
 			if (userQuestionAddResult != null) {
 				return userQuestionAddResult;
 			}
@@ -71,7 +69,7 @@ public class QuestionController {
 	// get all user Query
 	@GetMapping(value = "/viewAllUserQuestion", produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseStatus(code = HttpStatus.OK)
-	public List<UserQuestion> viewAllUserQuestion(HttpSession httpSession) {
-		return questionService.viewAllUserQuestion(httpSession);
+	public List<UserQuestion> viewAllUserQuestion() {
+		return questionService.viewAllUserQuestion();
 	}
 }

@@ -14,15 +14,14 @@ import com.gfive.domain.UserQuestion;
 import com.gfive.repository.ContactUsRepository;
 import com.gfive.repository.UserQuestionRepository;
 
-
 @Service(value = "questionService")
 @Scope(value = "singleton")
-public class QuestionService implements IQuestionsService{
-	
+public class QuestionService implements IQuestionsService {
+
 	@Autowired
 	@Qualifier(value = "userQuestionRepository")
 	private UserQuestionRepository userQuestionRepository;
-	
+
 	@Autowired
 	@Qualifier(value = "contactUsRepository")
 	private ContactUsRepository contactUsRepository;
@@ -38,30 +37,31 @@ public class QuestionService implements IQuestionsService{
 	}
 
 	@Override
-	public List<ContactUs> viewAllContactUs(HttpSession httpSession) {
-		if ((httpSession.getAttribute("adminLoginStatus")).equals(true)) {
-			return contactUsRepository.findAll();
-		}
-		return null;
+	public List<ContactUs> viewAllContactUs() {
+//		if ((httpSession.getAttribute("adminLoginStatus")).equals(true)) {
+//			return contactUsRepository.findAll();
+//		}
+		return contactUsRepository.findAll();
 	}
 
 	@Override
-	public UserQuestion addToUserQuestion(String userMessage, HttpSession httpSession) {
-		String emailId = (String) httpSession.getAttribute("userLoginEmail");
-		if (!(emailId).equals("")) {
-			UserQuestion userQuestion = new UserQuestion();
-			userQuestion.setUserquestion_email(emailId);
-			userQuestion.setUserquestion_message(userMessage);
-			return userQuestionRepository.save(userQuestion);
-		}
-		return null;
+	public UserQuestion addToUserQuestion(UserQuestion userQuestion) {
+//		String emailId = (String) httpSession.getAttribute("userLoginEmail");
+//		if (!(emailId).equals("")) {
+//			UserQuestion userQuestion = new UserQuestion();
+//			userQuestion.setUserquestion_email(emailId);
+//			userQuestion.setUserquestion_message(userMessage);
+//			return userQuestionRepository.save(userQuestion);
+//		}
+		
+		return userQuestionRepository.save(userQuestion);
 	}
 
 	@Override
-	public List<UserQuestion> viewAllUserQuestion(HttpSession httpSession) {
-		if ((httpSession.getAttribute("adminLoginStatus")).equals(true)) {
-			return userQuestionRepository.findAll();
-		}
-		return null;
+	public List<UserQuestion> viewAllUserQuestion() {
+//		if ((httpSession.getAttribute("adminLoginStatus")).equals(true)) {
+//			return userQuestionRepository.findAll();
+//		}
+		return userQuestionRepository.findAll();
 	}
 }

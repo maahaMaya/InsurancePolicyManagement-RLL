@@ -12,11 +12,11 @@ public interface IQuestionsService {
 	public ContactUs addToContactUs(ContactUs contactUs);
 	
 	//view all General Question
-	public List<ContactUs> viewAllContactUs(HttpSession httpSession);
+	public List<ContactUs> viewAllContactUs();
 	
 	//add User Question
-	public UserQuestion addToUserQuestion(String userMessage, HttpSession httpSession);
+	public UserQuestion addToUserQuestion(UserQuestion userQuestion);
 	
 	//view all User Question
-	public List<UserQuestion> viewAllUserQuestion(HttpSession httpSession);
+	public List<UserQuestion> viewAllUserQuestion();
 }
