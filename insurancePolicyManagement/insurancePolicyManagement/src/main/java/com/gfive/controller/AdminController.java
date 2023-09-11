@@ -1,8 +1,9 @@
 package com.gfive.controller;
 
 import java.util.List;
-import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,8 @@ import com.gfive.service.IAdminService;
 @Scope(value = "request")
 public class AdminController {
 
+	private Logger log =LoggerFactory.getLogger(AdminController.class);
+	
 	@Autowired
 	@Qualifier("adminService")
 	private IAdminService adminService;
@@ -50,7 +53,7 @@ public class AdminController {
 
 	@PostMapping(value = "/adminLogut")
 	@ResponseStatus(code = HttpStatus.ACCEPTED)
-	public boolean adminLogut(HttpSession httpSession) {
+	public boolean adminLogut() {
 		try {
 			return adminService.adminLogut();
 		} catch (Exception e) {
