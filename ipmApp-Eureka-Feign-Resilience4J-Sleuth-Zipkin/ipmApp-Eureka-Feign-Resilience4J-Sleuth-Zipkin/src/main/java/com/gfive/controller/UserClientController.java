@@ -1,12 +1,10 @@
 package com.gfive.controller;
 
 import java.util.List;
-import java.util.Map;
 
-import javax.servlet.http.HttpSession;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Scope;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -22,121 +20,69 @@ import org.springframework.web.bind.annotation.RestController;
 import com.gfive.domain.LoginCredentails;
 import com.gfive.domain.UpdatePasswordData;
 import com.gfive.domain.User;
-import com.gfive.service.IUserService;
+import com.gfive.proxy.UserServiceProxy;
 
 @RestController
-@Scope(value = "request")
-public class UserController {
+@Scope("request")
+public class UserClientController {
+	
+	private Logger log = LoggerFactory.getLogger(UserClientController.class);
 	
 	@Autowired
-	@Qualifier("userService")
-	private IUserService userService;
+	private UserServiceProxy userServiceProxyProxy;
 	
 	@PostMapping(value = "/addUser", produces = {MediaType.APPLICATION_JSON_VALUE},  consumes = {MediaType.APPLICATION_JSON_VALUE})
 	@ResponseStatus(code = HttpStatus.CREATED)
 	public User addUser(@RequestBody User user) {
-		try {
-			userService.addNewUser(user);
-			return user;
-		} catch (Exception e) {
-			System.out.println(e);
-		}
-		return null;
+		return userServiceProxyProxy.addUser(user);
 	}
 	
 	@GetMapping(value = "/viewAllUser", produces = {MediaType.APPLICATION_JSON_VALUE})
 	@ResponseStatus(code = HttpStatus.OK)
 	public List<User> vieAllUser() {
-		try {
-			return userService.viewAllUser();
-		} catch (Exception e) {
-			System.out.println(e);
-		}
-		return null;
+		return userServiceProxyProxy.vieAllUser();
 	}
 	
-	@PostMapping(value = "/loginUser", produces = { MediaType.APPLICATION_JSON_VALUE }, consumes = {
-			MediaType.APPLICATION_JSON_VALUE })
+	@PostMapping(value = "/loginUser")
 	@ResponseStatus(code = HttpStatus.FOUND)
 	public boolean userLogin(@RequestBody LoginCredentails loginCredentails) {
-		try {
-			String emaiId = loginCredentails.getEmailId();
-			String password = loginCredentails.getPassword();
-			return userService.userLogin(emaiId, password);
-		} catch (Exception e) {
-			System.out.println(e);
-		}
-		return false;
+		System.out.println("In loginCredentails : " + loginCredentails.toString());
+		boolean result = userServiceProxyProxy.loginUser(loginCredentails);
+		System.out.println("User Login Result " + result);
+		return result;
 	}
 	
 	@GetMapping(value = "/logutUser")
 	@ResponseStatus(code = HttpStatus.FOUND)
 	public boolean userLogut() {
-		try {
-			return userService.userLogut();
-		} catch (Exception e) {
-			System.out.println(e);
-		}
-		return false;
+		return userServiceProxyProxy.userLogut();
 	}
 	
 	@PutMapping(value = "/updateUser",  consumes = {MediaType.APPLICATION_JSON_VALUE})
 	@ResponseStatus(code = HttpStatus.OK)
 	public boolean updateUser(@RequestBody User user) {
-		try {
-			if(userService.updateUser(user)) {
-				return true;
-			}
-		} catch (Exception e) {
-			System.out.println(e);
-		}
-		return false;
+		return userServiceProxyProxy.updateUser(user);
 	}
 	
 	@DeleteMapping(value = "/deleteUser/{userEmailId}")
 	@ResponseStatus(code = HttpStatus.OK)
 	public boolean deleteUser(@PathVariable String userEmailId) {
-		try {
-			if(userService.deleteUser(userEmailId)) {
-				return true;
-			}
-		} catch (Exception e) {
-			System.out.println(e);
-		}
-		return false;
+		return userServiceProxyProxy.deleteUser(userEmailId);
 	}
 	
 	@GetMapping(value = "/viewAllByUserSerach/{searchKeyword}")
 	public List<User> viewUserBySearchKeyword(@PathVariable String searchKeyword) {
-		try {
-			return userService.viewUserBySearchKeyword(searchKeyword);
-		} catch (Exception e) {
-			System.out.println(e);
-		}
-		return null;
+		return userServiceProxyProxy.viewUserBySearchKeyword(searchKeyword);
 	}
 
 	@GetMapping(value = "/viewUserByEmail/{userEmailId}")
 	public User viewUserByEmailId(@PathVariable String userEmailId) {
-		try {
-			return (User) userService.viewUserByEmail(userEmailId);
-		} catch (Exception e) {
-			System.out.println(e);
-		}
-		return null;
+		return userServiceProxyProxy.viewUserByEmailId(userEmailId);
 	}
 	
 	@PutMapping(value = "/updatePassword",  consumes = {MediaType.APPLICATION_JSON_VALUE})
 	@ResponseStatus(code = HttpStatus.OK)
 	public boolean updateUserPassword(@RequestBody UpdatePasswordData updatePasswordData) {
-		try {
-			String emaiId = updatePasswordData.getEmailId();
-			String oldPassword = updatePasswordData.getOldPassword();
-			String newPassword = updatePasswordData.getNewPassword();
-			return userService.updateUserPassword(emaiId, oldPassword, newPassword);
-		} catch (Exception e) {
-			System.out.println(e);
-		}
-		return false;
+		return userServiceProxyProxy.updateUserPassword(updatePasswordData);
 	}
 }

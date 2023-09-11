@@ -32,25 +32,27 @@ public class UserService implements IUserService {
 	}
 
 	@Override
-	public boolean userLogin(String emailId, String password, HttpSession httpSession) {
+	public boolean userLogin(String emailId, String password) {
 		try {
 			List<User> allUserList = userRepository.findAll();
 			for (User userData : allUserList) {
 				if ((userData.getUser_email()).equals(emailId) && (userData.getUser_password()).equals(password)) {
-					httpSession.setAttribute("userLoginEmail", emailId);
+					//httpSession.setAttribute("userLoginEmail", emailId);
+					System.out.println("User Enter Correct credentails");
 					return true;
 				}
 			}
 		} catch (Exception e) {
 			System.out.println(e);
 		}
+		System.out.println("User Enter Wrong credentails");
 		return false;
 	}
 
 	@Override
-	public boolean userLogut(HttpSession httpSession) {
+	public boolean userLogut() {
 		try {
-			httpSession.setAttribute("userLoginEmail", "");
+			//httpSession.setAttribute("userLoginEmail", "");
 			return true;
 		} catch (Exception e) {
 			System.out.println(e);
@@ -86,12 +88,12 @@ public class UserService implements IUserService {
 	}
 
 	@Override
-	public List<User> viewAllUser(HttpSession httpSession) {
+	public List<User> viewAllUser() {
 		try {
-			if ((httpSession.getAttribute("adminLoginStatus")).equals(true)) {
-				return userRepository.findAll();
-			}
-			return null;
+//			if ((httpSession.getAttribute("adminLoginStatus")).equals(true)) {
+//				return userRepository.findAll();
+//			}
+			return userRepository.findAll();
 		} catch (Exception e) {
 			System.out.println(e);
 		}
@@ -119,11 +121,12 @@ public class UserService implements IUserService {
 	}
 
 	@Override
-	public List<User> viewUserBySearchKeyword(String searchKeyword, HttpSession httpSession) {
+	public List<User> viewUserBySearchKeyword(String searchKeyword) {
 		try {
-			if ((httpSession.getAttribute("adminLoginStatus")).equals(true)) {
-				return userRepository.searchUserByKeyWord(searchKeyword);
-			}
+//			if ((httpSession.getAttribute("adminLoginStatus")).equals(true)) {
+//				return userRepository.searchUserByKeyWord(searchKeyword);
+//			}
+			return userRepository.searchUserByKeyWord(searchKeyword);
 		} catch (Exception e) {
 			System.out.println(e);
 		}
@@ -131,7 +134,7 @@ public class UserService implements IUserService {
 	}
 
 	@Override
-	public User viewUserByEmail(String searchByEmail, HttpSession httpSession) {
+	public User viewUserByEmail(String searchByEmail) {
 		try {
 			return userRepository.searchUserByEmail(searchByEmail);
 		} catch (Exception e) {
