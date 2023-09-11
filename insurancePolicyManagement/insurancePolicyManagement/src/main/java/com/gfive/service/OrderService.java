@@ -38,11 +38,11 @@ public class OrderService implements IOrderService {
 	}
 
 	@Override
-	public List<Order> getAllOrder(HttpSession httpSession) {
+	public List<Order> getAllOrder() {
 		try {
-			if((httpSession.getAttribute("adminLoginStatus")).equals(false)) {
-				return null;
-			}
+//			if((httpSession.getAttribute("adminLoginStatus")).equals(false)) {
+//				return null;
+//			}
 			return orderRepository.findAll();
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -51,11 +51,11 @@ public class OrderService implements IOrderService {
 	}
 
 	@Override
-	public Order approveOrderStatus(Integer applicationId, HttpSession httpSession) {
+	public Order approveOrderStatus(Integer applicationId) {
 		try {
-			if((httpSession.getAttribute("adminLoginStatus")).equals(false)) {
-				return null;
-			}
+//			if((httpSession.getAttribute("adminLoginStatus")).equals(false)) {
+//				return null;
+//			}
 			List<Order> allOrderList = orderRepository.findAll();
 			for (Order orderData : allOrderList) {
 				if ((orderData.getApplication_id()).equals(applicationId)) {
@@ -70,11 +70,11 @@ public class OrderService implements IOrderService {
 	}
 
 	@Override
-	public Order waitingOrderStatus(Integer applicationId, HttpSession httpSession) {
+	public Order waitingOrderStatus(Integer applicationId) {
 		try {
-			if((httpSession.getAttribute("adminLoginStatus")).equals(false)) {
-				return null;
-			}
+//			if((httpSession.getAttribute("adminLoginStatus")).equals(false)) {
+//				return null;
+//			}
 			List<Order> allOrderList = orderRepository.findAll();
 			for (Order orderData : allOrderList) {
 				if ((orderData.getApplication_id()).equals(applicationId)) {
@@ -89,11 +89,11 @@ public class OrderService implements IOrderService {
 	}
 
 	@Override
-	public Order declineOrderStatus(Integer applicationId, HttpSession httpSession) {
+	public Order declineOrderStatus(Integer applicationId) {
 		try {
-			if((httpSession.getAttribute("adminLoginStatus")).equals(false)) {
-				return null;
-			}
+//			if((httpSession.getAttribute("adminLoginStatus")).equals(false)) {
+//				return null;
+//			}
 			List<Order> allOrderList = orderRepository.findAll();
 			for (Order orderData : allOrderList) {
 				if ((orderData.getApplication_id()).equals(applicationId)) {
@@ -108,12 +108,13 @@ public class OrderService implements IOrderService {
 	}
 
 	@Override
-	public List<Order> getUserOrder(String customerEmailId, HttpSession httpSession) {
+	public List<Order> getUserOrder(String customerEmailId) {
 		try {
-			String emailId = (String) httpSession.getAttribute("userLoginEmail");
-			if (!(emailId).equals("")) {
-				return orderRepository.searchOrderByKeyWord(customerEmailId);
-			}
+//			String emailId = (String) httpSession.getAttribute("userLoginEmail");
+//			if (!(emailId).equals("")) {
+//				return orderRepository.searchOrderByKeyWord(customerEmailId);
+//			}
+			return orderRepository.searchOrderByKeyWord(customerEmailId);
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
@@ -121,11 +122,11 @@ public class OrderService implements IOrderService {
 	}
 
 	@Override
-	public List<Order> serachOrderByKeyword(String serchKeyword, HttpSession httpSession) {
+	public List<Order> serachOrderByKeyword(String serchKeyword) {
 		try {
-			if((httpSession.getAttribute("adminLoginStatus")).equals(false)) {
-				return null;
-			}
+//			if((httpSession.getAttribute("adminLoginStatus")).equals(false)) {
+//				return null;
+//			}
 			return orderRepository.searchOrderByKeyWord(serchKeyword);
 		} catch (Exception e) {
 			// TODO: handle exception

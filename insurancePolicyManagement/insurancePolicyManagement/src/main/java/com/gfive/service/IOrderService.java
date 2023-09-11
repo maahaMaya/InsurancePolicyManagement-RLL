@@ -12,20 +12,20 @@ public interface IOrderService {
 	public Order createOrdered(GetOrderDetails getOrderDetails);
 	
 	//get all order
-	public List<Order> getAllOrder(HttpSession httpSession);
+	public List<Order> getAllOrder();
 	
 	//approve order status change
-	public Order approveOrderStatus(Integer applicationId, HttpSession httpSession);
+	public Order approveOrderStatus(Integer applicationId);
 	
 	//approve order status change
-	public Order waitingOrderStatus(Integer applicationId, HttpSession httpSession);
+	public Order waitingOrderStatus(Integer applicationId);
 	
 	//approve order status change
-	public Order declineOrderStatus(Integer applicationId, HttpSession httpSession);
+	public Order declineOrderStatus(Integer applicationId);
 	
 	//get order customer order
-	public List<Order> getUserOrder(String customerEmailId, HttpSession httpSession);
+	public List<Order> getUserOrder(String customerEmailId);
 	
 	//get order customer order
-	public List<Order> serachOrderByKeyword(String customerEmailId, HttpSession httpSession);
+	public List<Order> serachOrderByKeyword(String customerEmailId);
 }

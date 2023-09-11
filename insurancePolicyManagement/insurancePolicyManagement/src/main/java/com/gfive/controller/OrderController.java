@@ -31,7 +31,7 @@ public class OrderController {
 	// add order
 	@PostMapping(value = "/addOrder", produces = {MediaType.APPLICATION_JSON_VALUE},  consumes = {MediaType.APPLICATION_JSON_VALUE})
 	@ResponseStatus(code = HttpStatus.CREATED)
-	public Order addPolicy(@RequestBody GetOrderDetails getOrderDetails) {
+	public Order addOrder(@RequestBody GetOrderDetails getOrderDetails) {
 		try {
 			Order orderAddResult = orderService.createOrdered(getOrderDetails);
 			if (orderAddResult != null) {
@@ -46,9 +46,9 @@ public class OrderController {
 	// get all order
 	@GetMapping(value = "/viewAllOrder", produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseStatus(code = HttpStatus.OK)
-	public List<Order> getAllOrder(HttpSession httpSession) {
+	public List<Order> getAllOrder() {
 		try {
-			return orderService.getAllOrder(httpSession);
+			return orderService.getAllOrder();
 		} catch (Exception e) {
 			System.out.println(e);
 		}
@@ -58,9 +58,9 @@ public class OrderController {
 	// approve order status
 	@GetMapping(value = "/approveOrder/{applicationId}")
 	@ResponseStatus(code = HttpStatus.OK)
-	public  Order approveOrderStatus(@PathVariable Integer applicationId, HttpSession httpSession) {
+	public  Order approveOrderStatus(@PathVariable Integer applicationId) {
 		try {
-			return orderService.approveOrderStatus(applicationId, httpSession);
+			return orderService.approveOrderStatus(applicationId);
 		} catch (Exception e) {
 			System.out.println(e);
 		}
@@ -70,9 +70,9 @@ public class OrderController {
 	// approve order status
 	@GetMapping(value = "/declineOrder/{applicationId}")
 	@ResponseStatus(code = HttpStatus.OK)
-	public  Order declineOrderStatus(@PathVariable Integer applicationId, HttpSession httpSession) {
+	public  Order declineOrderStatus(@PathVariable Integer applicationId) {
 		try {
-			return orderService.declineOrderStatus(applicationId, httpSession);
+			return orderService.declineOrderStatus(applicationId);
 		} catch (Exception e) {
 			System.out.println(e);
 		}
@@ -82,9 +82,9 @@ public class OrderController {
 	// approve order status
 	@GetMapping(value = "/waitingOrder/{applicationId}")
 	@ResponseStatus(code = HttpStatus.OK)
-	public  Order waitingOrderStatus(@PathVariable Integer applicationId, HttpSession httpSession) {
+	public  Order waitingOrderStatus(@PathVariable Integer applicationId) {
 		try {
-			return orderService.waitingOrderStatus(applicationId, httpSession);
+			return orderService.waitingOrderStatus(applicationId);
 		} catch (Exception e) {
 			System.out.println(e);
 		}
@@ -94,9 +94,9 @@ public class OrderController {
 	// get all user order
 	@GetMapping(value = "/viewUserOrder/{userEmailId}")
 	@ResponseStatus(code = HttpStatus.OK)
-	public List<Order> getUserOrder(@PathVariable String userEmailId, HttpSession httpSession) {
+	public List<Order> getUserOrder(@PathVariable String userEmailId) {
 		try {
-			return orderService.getUserOrder(userEmailId, httpSession);
+			return orderService.getUserOrder(userEmailId);
 		} catch (Exception e) {
 			System.out.println(e);
 		}
@@ -106,9 +106,9 @@ public class OrderController {
 	// get admin search order
 	@GetMapping(value = "/serachOrderByKeyword/{searchKeyword}")
 	@ResponseStatus(code = HttpStatus.OK)
-	public List<Order> serachOrderByKeyword(@PathVariable String searchKeyword, HttpSession httpSession) {
+	public List<Order> serachOrderByKeyword(@PathVariable String searchKeyword) {
 		try {
-			return orderService.serachOrderByKeyword(searchKeyword, httpSession);
+			return orderService.serachOrderByKeyword(searchKeyword);
 		} catch (Exception e) {
 			System.out.println(e);
 		}
